@@ -2,6 +2,7 @@ package com.example.mobilegameballcollector;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,7 +59,23 @@ public class GameActivity extends AppCompatActivity {
     private void addAnotherCollectedBall() {
         collectedBalls++;
 
-        // TODO- check for new record and make text for new record visible
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
+
+        int record = sharedPreferences.getInt("record", 0);
+
+        if(collectedBalls > record) {
+            SharedPreferences.Editor sharedPreferencesEditor =
+                    getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE).edit();
+
+            sharedPreferencesEditor.putInt("record", collectedBalls);
+
+            sharedPreferencesEditor.apply();
+            sharedPreferencesEditor.commit();
+
+            newRecordTextView.setText("New record: " + collectedBalls);
+            newRecordTextView.setVisibility(View.VISIBLE);
+        }
 
         this.collectedTextView.setText(String.valueOf(collectedBalls));
     }
@@ -76,7 +93,7 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             youLostTextView.setVisibility(View.INVISIBLE);
-            // TODO- hide new record message too
+            newRecordTextView.setVisibility(View.INVISIBLE);
 
             if (v.getId() == R.id.leftButton) {
                 leftOrRight = "left";

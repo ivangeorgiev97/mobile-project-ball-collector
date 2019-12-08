@@ -36,14 +36,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (!email.isEmpty() && !password.isEmpty() &&
                         password.equals(password1)) {
-                    SharedPreferences.Editor editor =
+                    SharedPreferences.Editor sharedPreferencesEditor =
                             getSharedPreferences("MobileGameBallCollector", MODE_PRIVATE).edit();
 
-                    editor.putString("email", email);
-                    editor.putString("password", password);
+                    sharedPreferencesEditor.putString("email", email);
+                    sharedPreferencesEditor.putString("password", password);
 
-                    editor.apply();
-                    editor.commit();
+                    sharedPreferencesEditor.apply();
+                    sharedPreferencesEditor.commit();
 
                     Toast.makeText(RegistrationActivity.this, "Now you can login with your email and password",
                             Toast.LENGTH_SHORT).show();
