@@ -73,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
             sharedPreferencesEditor.apply();
             sharedPreferencesEditor.commit();
 
-            newRecordTextView.setText("New record: " + collectedBalls);
+            newRecordTextView.setText("N E W  R E C O R D : " + collectedBalls);
             newRecordTextView.setVisibility(View.VISIBLE);
         }
 
