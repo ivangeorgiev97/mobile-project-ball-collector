@@ -5,12 +5,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.xml.validation.TypeInfoProvider;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -23,6 +32,22 @@ public class GameActivity extends AppCompatActivity {
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
+
+    // Screen size
+    private int screenWidth;
+    private int screenHeight;
+
+    // Images
+    private ImageView ballDown;
+
+    // Position
+    private float ballDownX;
+    private float ballDownY;
+
+    // Initialize Class
+    private Handler handler = new Handler();
+    private Timer timer = new Timer();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +64,52 @@ public class GameActivity extends AppCompatActivity {
         rightButton.setOnClickListener(onClickListener);
 
 
-        GameFragment gameFragment = new GameFragment();
+//        GameFragment gameFragment = new GameFragment();
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//
+//        FragmentTransaction transaction = fm.beginTransaction();
+//        transaction.replace(R.id.placeholder, gameFragment);
+//
+//        transaction.commit();
 
-        FragmentManager fm = getSupportFragmentManager();
+        ballDown = (ImageView)findViewById(R.id.ballDown);
 
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.placeholder, gameFragment);
+        // Get Screen Size
+        WindowManager wm = getWindowManager();
+        Display disp = wm.getDefaultDisplay();
+        Point size = new Point();
+        disp.getSize(size);
+        screenWidth = size.x;
+        screenHeight = size.y;
 
-        transaction.commit();
+        // Move to out of screen
+        ballDown.setX(-80.0f);
+        ballDown.setY(screenHeight  + 80.0f);
+
+        // start the timer
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        changePos();
+                    }
+                });
+            }
+        },0,20);
+    }
+
+    public void changePos(){
+
+        ballDownY += 10;
+        if(ballDown.getY() > screenHeight){
+            ballDownX = (float)Math.floor(Math.random() * (screenWidth- ballDown.getMaxWidth()));
+            ballDownY = -100.0f;
+        }
+        ballDown.setX(ballDownX);
+        ballDown.setY(ballDownY);
     }
 
     private String getLeftOrRight() {
@@ -114,6 +177,8 @@ public class GameActivity extends AppCompatActivity {
 
                 checkChoice(leftOrRight);
             }
+
         }
     };
+
 }
