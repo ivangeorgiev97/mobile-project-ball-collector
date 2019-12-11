@@ -1,13 +1,11 @@
 package com.example.mobilegameballcollector;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,17 +65,8 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Display display =
-                getActivity().getWindowManager().getDefaultDisplay();
-
-        Point size = new Point();
-        display.getSize(size);
-
-        GameView gameView = new GameView(getActivity(), size.x, size.y);
-
-        return gameView;
         // Inflate the layout for this fragment
-      //  return inflater.inflate(R.layout.fragment_game, container, false);
+        return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
