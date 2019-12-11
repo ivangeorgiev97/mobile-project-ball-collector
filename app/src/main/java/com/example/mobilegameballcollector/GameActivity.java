@@ -44,10 +44,11 @@ public class GameActivity extends AppCompatActivity {
         return choices[randomChoice];
     }
 
+    // TODO- show animation where the ball goes- left or right basket using gameChoice value
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
-        // TODO- show animation where the ball goes- left or right basket using gameChoice value
+
 
         if (choice == gameChoice) {
          addAnotherCollectedBall();
@@ -81,8 +82,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showGameEnded() {
-        // TODO- show fragment with lost game and total collected balls using collectedBalls value
-
         collectedBalls = 0;
 
         this.collectedTextView.setText(String.valueOf(collectedBalls));
