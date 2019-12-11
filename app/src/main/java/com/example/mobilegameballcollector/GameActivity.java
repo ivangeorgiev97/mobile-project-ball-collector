@@ -1,6 +1,8 @@
 package com.example.mobilegameballcollector;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,6 +37,16 @@ public class GameActivity extends AppCompatActivity {
 
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
+
+
+        GameFragment gameFragment = new GameFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.placeholder, gameFragment);
+
+        transaction.commit();
     }
 
     private String getLeftOrRight() {
@@ -47,7 +59,6 @@ public class GameActivity extends AppCompatActivity {
     // TODO- show animation where the ball goes- left or right basket using gameChoice value
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
-
 
 
         if (choice == gameChoice) {
