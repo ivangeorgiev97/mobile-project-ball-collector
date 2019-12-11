@@ -63,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
+    }
 
 //        GameFragment gameFragment = new GameFragment();
 //
@@ -73,44 +74,44 @@ public class GameActivity extends AppCompatActivity {
 //
 //        transaction.commit();
 
-        ballDown = (ImageView)findViewById(R.id.ballDown);
-
-        // Get Screen Size
-        WindowManager wm = getWindowManager();
-        Display disp = wm.getDefaultDisplay();
-        Point size = new Point();
-        disp.getSize(size);
-        screenWidth = size.x;
-        screenHeight = size.y;
-
-        // Move to out of screen
-        ballDown.setX(-80.0f);
-        ballDown.setY(screenHeight  + 80.0f);
-
-        // start the timer
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        changePos();
-                    }
-                });
-            }
-        },0,20);
-    }
-
-    public void changePos(){
-
-        ballDownY += 10;
-        if(ballDown.getY() > screenHeight){
-            ballDownX = (float)Math.floor(Math.random() * (screenWidth- ballDown.getMaxWidth()));
-            ballDownY = -100.0f;
-        }
-        ballDown.setX(ballDownX);
-        ballDown.setY(ballDownY);
-    }
+//        ballDown = (ImageView)findViewById(R.id.ballDown);
+//
+//        // Get Screen Size
+//        WindowManager wm = getWindowManager();
+//        Display disp = wm.getDefaultDisplay();
+//        Point size = new Point();
+//        disp.getSize(size);
+//        screenWidth = size.x;
+//        screenHeight = size.y;
+//
+//        // Move to out of screen
+//        ballDown.setX(-80.0f);
+//        ballDown.setY(screenHeight  + 80.0f);
+//
+//        // start the timer
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        changePos();
+//                    }
+//                });
+//            }
+//        },0,20);
+//    }
+//
+//    public void changePos(){
+//
+//        ballDownY += 10;
+//        if(ballDown.getY() > screenHeight){
+//            ballDownX = (float)Math.floor(Math.random() * (screenWidth- ballDown.getMaxWidth()));
+//            ballDownY = -100.0f;
+//        }
+//        ballDown.setX(ballDownX);
+//        ballDown.setY(ballDownY);
+//    }
 
     private String getLeftOrRight() {
         String[] choices = new String[]{"left", "right"};
