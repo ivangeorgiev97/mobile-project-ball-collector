@@ -45,8 +45,9 @@ public class LoginActivity extends AppCompatActivity {
                 String email = sharedPreferences.getString("email", "");
                 String password = sharedPreferences.getString("password", "");
 
-                if(emailEditText.getText().toString().equalsIgnoreCase(email)
-                        && passwordEditText.getText().toString().equals(password)){
+                // Check if email or password from sharedPreferences are empty or with default value
+                if (!email.isEmpty() && emailEditText.getText().toString().equalsIgnoreCase(email)
+                        && !password.isEmpty() && passwordEditText.getText().toString().equals(password)) {
 
                     Intent intent = new Intent
                             (LoginActivity.this, MainActivity.class);
