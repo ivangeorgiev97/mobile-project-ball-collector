@@ -34,6 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String password1 = passwordEditText1.getText().toString();
 
+                // Check if email and passwords fields are not empty and also if value of both password fields is the same
                 if (!email.isEmpty() && !password.isEmpty() &&
                         password.equals(password1)) {
                     SharedPreferences.Editor sharedPreferencesEditor =
@@ -44,6 +45,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     sharedPreferencesEditor.apply();
                     sharedPreferencesEditor.commit();
+
+                    // Clear texts
+                    emailEditText.getText().clear();
+                    passwordEditText.getText().clear();
+                    passwordEditText1.getText().clear();
 
                     Toast.makeText(RegistrationActivity.this, "Now you can login with your email and password",
                             Toast.LENGTH_SHORT).show();
