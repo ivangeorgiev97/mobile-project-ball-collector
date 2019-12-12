@@ -12,38 +12,16 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="187dp"
-            android:layout_height="143dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="404dp"
-            android:src="@drawable/trashcan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="187dp"
-            android:layout_height="143dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="404dp"
-            android:src="@drawable/trashcan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ballDown"
-            android:layout_width="168dp"
-            android:layout_height="63dp"
+            android:id="@+id/imgmove"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="60dp"
             android:src="@drawable/football"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentTop="true" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -57,8 +35,21 @@
             android:src="@drawable/football"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.444"
-            app:layout_constraintStart_toEndOf="@+id/ballDown"
+            app:layout_constraintStart_toEndOf="@+id/imgmove"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btnmove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="Start Moving"
+            tools:layout_editor_absoluteX="260dp"
+            tools:layout_editor_absoluteY="341dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,14 +7,13 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.mobilegameballcollector.Ball;
-import com.example.mobilegameballcollector.Trashcan;
 
 import java.util.ArrayList;
 
 public class GameView  extends SurfaceView implements Runnable {
 
     Ball ball;
-    Trashcan trashcan;
+    //Trashcan trashcan;
     boolean alive;
     int sizeX;
     int sizeY;
@@ -34,7 +33,7 @@ public class GameView  extends SurfaceView implements Runnable {
         this.sizeY = sizeY;
 
         ball = new Ball(context, sizeX, sizeY);
-        trashcan = new Trashcan(context, sizeX, sizeY);
+        //trashcan = new Trashcan(context, sizeX, sizeY);
 
         surfaceHolder = getHolder();
         paint = new Paint();
@@ -76,12 +75,12 @@ public class GameView  extends SurfaceView implements Runnable {
             paint.setColor(Color.WHITE);
             paint.setTextSize(50);
 
-            canvas.drawBitmap(
-                    trashcan.bitmap,
-                    trashcan.x,
-                    trashcan.y,
-                    paint
-            );
+//            canvas.drawBitmap(
+//                    trashcan.bitmap,
+//                    trashcan.x,
+//                    trashcan.y,
+//                    paint
+//            );
 
             for(Ball ball : balls){
                 canvas.drawBitmap(ball.bitmap,
