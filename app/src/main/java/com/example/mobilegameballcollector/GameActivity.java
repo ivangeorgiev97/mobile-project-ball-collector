@@ -117,14 +117,14 @@ public class GameActivity extends AppCompatActivity {
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
-//        GameFragment gameFragment = new GameFragment();
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//
-//        FragmentTransaction transaction = fm.beginTransaction();
-//        transaction.replace(R.id.placeholder, gameFragment);
-//
-//        transaction.commit();
+        GameFragment gameFragment = new GameFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.placeholder, gameFragment);
+
+        transaction.commit();
 
         if (choice == gameChoice) {
          addAnotherCollectedBall();
