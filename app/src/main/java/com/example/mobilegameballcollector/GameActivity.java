@@ -63,16 +63,10 @@ public class GameActivity extends AppCompatActivity {
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
+
     }
 
-//        GameFragment gameFragment = new GameFragment();
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//
-//        FragmentTransaction transaction = fm.beginTransaction();
-//        transaction.replace(R.id.placeholder, gameFragment);
-//
-//        transaction.commit();
+
 
 //        ballDown = (ImageView)findViewById(R.id.ballDown);
 //
@@ -120,10 +114,17 @@ public class GameActivity extends AppCompatActivity {
         return choices[randomChoice];
     }
 
-    // TODO- show animation where the ball goes- left or right basket using gameChoice value
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
+//        GameFragment gameFragment = new GameFragment();
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//
+//        FragmentTransaction transaction = fm.beginTransaction();
+//        transaction.replace(R.id.placeholder, gameFragment);
+//
+//        transaction.commit();
 
         if (choice == gameChoice) {
          addAnotherCollectedBall();
