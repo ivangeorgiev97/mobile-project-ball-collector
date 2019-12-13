@@ -1,16 +1,29 @@
 package com.example.mobilegameballcollector;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class GameActivity extends AppCompatActivity {
+import javax.xml.validation.TypeInfoProvider;
+
+public class GameActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
 
     private int collectedBalls;
     private String leftOrRight;
@@ -21,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,13 @@ public class GameActivity extends AppCompatActivity {
 
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
+
+        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
+        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+
+        imgView.setVisibility(View.INVISIBLE);
+        imgView2.setVisibility(View.INVISIBLE);
+
     }
 
     private String getLeftOrRight() {
@@ -47,12 +68,30 @@ public class GameActivity extends AppCompatActivity {
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
-        // TODO- show animation where the ball goes- left or right basket using gameChoice value
+        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
+        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+
+        imgView.setVisibility(View.INVISIBLE);
+        imgView2.setVisibility(View.INVISIBLE);
+
+        leftButton.setEnabled(false);
+        rightButton.setEnabled(false);
+
+        if (gameChoice == "left") {
+            imgView.setVisibility(View.VISIBLE);
+        } else {
+            imgView2.setVisibility(View.VISIBLE);
+        }
+
+        rightButton.setEnabled(true);
+        leftButton.setEnabled(true);
 
         if (choice == gameChoice) {
-         addAnotherCollectedBall();
+            addAnotherCollectedBall();
         } else {
-         showGameEnded();
+            imgView.setVisibility(View.INVISIBLE);
+            imgView2.setVisibility(View.INVISIBLE);
+            showGameEnded();
         }
     }
 
@@ -64,7 +103,7 @@ public class GameActivity extends AppCompatActivity {
 
         int record = sharedPreferences.getInt("record", 0);
 
-        if(collectedBalls > record) {
+        if (collectedBalls > record) {
             SharedPreferences.Editor sharedPreferencesEditor =
                     getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE).edit();
 
@@ -81,8 +120,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showGameEnded() {
-        // TODO- show fragment with lost game and total collected balls using collectedBalls value
-
         collectedBalls = 0;
 
         this.collectedTextView.setText(String.valueOf(collectedBalls));
@@ -103,7 +140,13 @@ public class GameActivity extends AppCompatActivity {
                 leftOrRight = "right";
 
                 checkChoice(leftOrRight);
+
             }
+
         }
     };
+
+    public void onFragmentInteraction(Uri uri) {
+        Log.i("Tag", "onFragmentInteraction called");
+    }
 }

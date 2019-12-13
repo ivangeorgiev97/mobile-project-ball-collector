@@ -6,29 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="391dp"
-        android:layout_height="346dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-    </LinearLayout>
-
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView10"
         android:layout_width="596dp"
         android:layout_height="966dp"
         android:tint="#A1070000"
@@ -44,17 +23,15 @@
         android:id="@+id/whereTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="252dp"
         android:gravity="center"
         android:text="W H E R E  T H E  B A L L \nW I L L  G O ?"
         android:textColor="#FDFDFD"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/rightButton"
@@ -135,5 +112,45 @@
         app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toEndOf="@+id/collectedBallsTextView"
         app:layout_constraintTop_toBottomOf="@+id/rightButton"
-        app:layout_constraintVertical_bias="0.58" />
+        app:layout_constraintVertical_bias="0.58" /><![CDATA[
+
+
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+
+
+
+
+
+    ]]>
+
+    <ImageView
+        android:id="@+id/imgmove"
+        android:layout_width="132dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="104dp"
+        android:src="@drawable/football"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgmove2"
+        android:layout_width="132dp"
+        android:layout_height="84dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:src="@drawable/football"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
