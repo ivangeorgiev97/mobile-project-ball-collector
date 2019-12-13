@@ -22,7 +22,7 @@ ImageView imageView;
 
         view = inflater.inflate(R.layout.activity_game, container, false);
         imageView = (ImageView) view.findViewById(R.id.imgmove);
-        btnmove = (Button)view.findViewById(R.id.btnmove);
+       // btnmove = (Button)view.findViewById(R.id.btnmove);
         animMove = AnimationUtils.loadAnimation(getContext(),
                 R.anim.move );
         animMove.setAnimationListener(this);

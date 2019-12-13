@@ -69,49 +69,16 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
+        ImageView imgView = (ImageView)findViewById(R.id.imgmove);
+        ImageView imgView2 = (ImageView)findViewById(R.id.imgmove2);
+
+        imgView.setVisibility(View.INVISIBLE);
+        imgView2.setVisibility(View.INVISIBLE);
+
+
+
 
     }
-
-
-
-//        ballDown = (ImageView)findViewById(R.id.ballDown);
-//
-//        // Get Screen Size
-//        WindowManager wm = getWindowManager();
-//        Display disp = wm.getDefaultDisplay();
-//        Point size = new Point();
-//        disp.getSize(size);
-//        screenWidth = size.x;
-//        screenHeight = size.y;
-//
-//        // Move to out of screen
-//        ballDown.setX(-80.0f);
-//        ballDown.setY(screenHeight  + 80.0f);
-//
-//        // start the timer
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        changePos();
-//                    }
-//                });
-//            }
-//        },0,20);
-//    }
-//
-//    public void changePos(){
-//
-//        ballDownY += 10;
-//        if(ballDown.getY() > screenHeight){
-//            ballDownX = (float)Math.floor(Math.random() * (screenWidth- ballDown.getMaxWidth()));
-//            ballDownY = -100.0f;
-//        }
-//        ballDown.setX(ballDownX);
-//        ballDown.setY(ballDownY);
-//    }
 
     private String getLeftOrRight() {
         String[] choices = new String[]{"left", "right"};
@@ -122,6 +89,11 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
 
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
+
+        ImageView imgView = (ImageView)findViewById(R.id.imgmove);
+
+        imgView.setVisibility(View.VISIBLE);
+
 
         if (choice == gameChoice) {
          addAnotherCollectedBall();
