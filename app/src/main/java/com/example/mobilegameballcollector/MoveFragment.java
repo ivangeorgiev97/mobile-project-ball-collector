@@ -8,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -23,7 +22,7 @@ public class MoveFragment  extends Fragment implements Animation.AnimationListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_game, container, false);
+        view = inflater.inflate(R.layout.activity_main, container, false);
         imageView = (ImageView) view.findViewById(R.id.imgmove);
         btnmove = (Button) view.findViewById(R.id.btnmove);
         animMove = AnimationUtils.loadAnimation(getContext(),

@@ -63,25 +63,23 @@ public class GameFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+//
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        Display display =
+//                getActivity().getWindowManager().getDefaultDisplay();
+//
+//        Point size = new Point();
+//        display.getSize(size);
+//
+//        GameView gameView;
+//        gameView = new com.example.mobilegameballscollector.GameView(getActivity(), size.x, size.y);
+//
+//        //  return gameView;
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_game, container, false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Display display =
-                getActivity().getWindowManager().getDefaultDisplay();
-
-        Point size = new Point();
-        display.getSize(size);
-
-        com.example.mobilegameballscollector.GameView gameView;
-        gameView = new com.example.mobilegameballscollector.GameView(getActivity(), size.x, size.y);
-
-        //  return gameView;
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false);
-
-
-        }
 
 
     // TODO: Rename method, update argument and hook method into UI event
