@@ -35,25 +35,6 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
     TextView newRecordTextView;
     TextView youLostTextView;
 
-    // Screen size
-    private int screenWidth;
-    private int screenHeight;
-
-    // Images
-    private ImageView ballDown;
-
-    // Position
-    private float ballDownX;
-    private float ballDownY;
-
-    // Initialize Class
-    private Handler handler = new Handler();
-    private Timer timer = new Timer();
-
-
-    public void onFragmentInteraction(Uri uri){
-        Log.i("Tag", "onFragmentInteraction called");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +50,11 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
-        ImageView imgView = (ImageView)findViewById(R.id.imgmove);
-        ImageView imgView2 = (ImageView)findViewById(R.id.imgmove2);
+        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
+        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
 
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
-
-
-
 
     }
 
@@ -89,16 +67,32 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
 
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
+        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
+        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+        imgView.setVisibility(View.INVISIBLE);
+        imgView2.setVisibility(View.INVISIBLE);
 
-        ImageView imgView = (ImageView)findViewById(R.id.imgmove);
-
-        imgView.setVisibility(View.VISIBLE);
-
+        if (gameChoice == "left"){
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            imgView.setVisibility(View.VISIBLE);
+            rightButton.setEnabled(true);
+            leftButton.setEnabled(true);
+        }else
+        {
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            imgView2.setVisibility(View.VISIBLE);
+            rightButton.setEnabled(true);
+            leftButton.setEnabled(true);
+        }
 
         if (choice == gameChoice) {
-         addAnotherCollectedBall();
+            addAnotherCollectedBall();
         } else {
-         showGameEnded();
+            imgView.setVisibility(View.INVISIBLE);
+            imgView2.setVisibility(View.INVISIBLE);
+            showGameEnded();
         }
     }
 
@@ -110,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
 
         int record = sharedPreferences.getInt("record", 0);
 
-        if(collectedBalls > record) {
+        if (collectedBalls > record) {
             SharedPreferences.Editor sharedPreferencesEditor =
                     getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE).edit();
 
@@ -138,18 +132,35 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         public void onClick(View v) {
             youLostTextView.setVisibility(View.INVISIBLE);
             newRecordTextView.setVisibility(View.INVISIBLE);
+//
+//            ImageView imgView = (ImageView) findViewById(R.id.imgmove);
+//            ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+//            imgView.setVisibility(View.INVISIBLE);
+//            imgView2.setVisibility(View.INVISIBLE);
 
             if (v.getId() == R.id.leftButton) {
                 leftOrRight = "left";
+//                leftButton.setEnabled(false);
+//                imgView.setVisibility(View.VISIBLE);
+//
+//                leftButton.setEnabled(true);
 
                 checkChoice(leftOrRight);
             } else if (v.getId() == R.id.rightButton) {
                 leftOrRight = "right";
+//                rightButton.setEnabled(false);
+//                imgView2.setVisibility(View.VISIBLE);
+//
+//                rightButton.setEnabled(true);
 
                 checkChoice(leftOrRight);
+
             }
 
         }
     };
 
+    public void onFragmentInteraction(Uri uri) {
+        Log.i("Tag", "onFragmentInteraction called");
+    }
 }
