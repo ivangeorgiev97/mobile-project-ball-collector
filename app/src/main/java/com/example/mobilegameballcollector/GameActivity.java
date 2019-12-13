@@ -67,25 +67,24 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
 
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
+
         ImageView imgView = (ImageView) findViewById(R.id.imgmove);
         ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
 
-        if (gameChoice == "left"){
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
+        leftButton.setEnabled(false);
+        rightButton.setEnabled(false);
+
+        if (gameChoice == "left") {
             imgView.setVisibility(View.VISIBLE);
-            rightButton.setEnabled(true);
-            leftButton.setEnabled(true);
-        }else
-        {
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
+        } else {
             imgView2.setVisibility(View.VISIBLE);
-            rightButton.setEnabled(true);
-            leftButton.setEnabled(true);
         }
+
+        rightButton.setEnabled(true);
+        leftButton.setEnabled(true);
 
         if (choice == gameChoice) {
             addAnotherCollectedBall();
@@ -132,26 +131,13 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         public void onClick(View v) {
             youLostTextView.setVisibility(View.INVISIBLE);
             newRecordTextView.setVisibility(View.INVISIBLE);
-//
-//            ImageView imgView = (ImageView) findViewById(R.id.imgmove);
-//            ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
-//            imgView.setVisibility(View.INVISIBLE);
-//            imgView2.setVisibility(View.INVISIBLE);
 
             if (v.getId() == R.id.leftButton) {
                 leftOrRight = "left";
-//                leftButton.setEnabled(false);
-//                imgView.setVisibility(View.VISIBLE);
-//
-//                leftButton.setEnabled(true);
 
                 checkChoice(leftOrRight);
             } else if (v.getId() == R.id.rightButton) {
                 leftOrRight = "right";
-//                rightButton.setEnabled(false);
-//                imgView2.setVisibility(View.VISIBLE);
-//
-//                rightButton.setEnabled(true);
 
                 checkChoice(leftOrRight);
 
