@@ -11,10 +11,8 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class MoveFragment  extends Fragment implements Animation.AnimationListener {
-
-    @Nullable
-    ImageView imageView;
+public class MoveFragment extends Fragment implements Animation.AnimationListener{ @Nullable
+ImageView imageView;
     Button btnmove;
     View view;
     Animation animMove;
@@ -22,11 +20,11 @@ public class MoveFragment  extends Fragment implements Animation.AnimationListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_main, container, false);
+        view = inflater.inflate(R.layout.activity_game, container, false);
         imageView = (ImageView) view.findViewById(R.id.imgmove);
-        btnmove = (Button) view.findViewById(R.id.btnmove);
+        btnmove = (Button)view.findViewById(R.id.btnmove);
         animMove = AnimationUtils.loadAnimation(getContext(),
-                R.anim.move);
+                R.anim.move );
         animMove.setAnimationListener(this);
 
         btnmove.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +47,5 @@ public class MoveFragment  extends Fragment implements Animation.AnimationListen
 
     @Override
     public void onAnimationRepeat(Animation animation) {
-
     }
 }

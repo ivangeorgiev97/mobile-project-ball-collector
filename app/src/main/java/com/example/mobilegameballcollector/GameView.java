@@ -75,13 +75,6 @@ public class GameView  extends SurfaceView implements Runnable {
             paint.setColor(Color.WHITE);
             paint.setTextSize(50);
 
-//            canvas.drawBitmap(
-//                    trashcan.bitmap,
-//                    trashcan.x,
-//                    trashcan.y,
-//                    paint
-//            );
-
             for(Ball ball : balls){
                 canvas.drawBitmap(ball.bitmap,
                         ball.x,

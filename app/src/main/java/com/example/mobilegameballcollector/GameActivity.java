@@ -6,8 +6,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -21,7 +23,7 @@ import java.util.TimerTask;
 
 import javax.xml.validation.TypeInfoProvider;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
 
     private int collectedBalls;
     private String leftOrRight;
@@ -48,6 +50,10 @@ public class GameActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Timer timer = new Timer();
 
+
+    public void onFragmentInteraction(Uri uri){
+        Log.i("Tag", "onFragmentInteraction called");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,15 +122,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
-
-        GameFragment gameFragment = new GameFragment();
-
-        FragmentManager fm = getSupportFragmentManager();
-
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.placeholder, gameFragment);
-
-        transaction.commit();
 
         if (choice == gameChoice) {
          addAnotherCollectedBall();
