@@ -26,6 +26,7 @@ import javax.xml.validation.TypeInfoProvider;
 public class GameActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
 
     private int collectedBalls;
+    private int currentRecord;
     private String leftOrRight;
     private String gameChoice;
 
@@ -50,12 +51,15 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
-        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
-        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+        ImageView imgView = findViewById(R.id.imgmove);
+        ImageView imgView2 = findViewById(R.id.imgmove2);
 
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
 
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
+        currentRecord = sharedPreferences.getInt("record", 0);
     }
 
     private String getLeftOrRight() {
@@ -68,8 +72,8 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
-        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
-        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
+        ImageView imgView = findViewById(R.id.imgmove);
+        ImageView imgView2 = findViewById(R.id.imgmove2);
 
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
@@ -98,12 +102,9 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
     private void addAnotherCollectedBall() {
         collectedBalls++;
 
-        SharedPreferences sharedPreferences =
-                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
+        if (collectedBalls > currentRecord) {
+            currentRecord = collectedBalls;
 
-        int record = sharedPreferences.getInt("record", 0);
-
-        if (collectedBalls > record) {
             SharedPreferences.Editor sharedPreferencesEditor =
                     getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE).edit();
 
@@ -140,7 +141,6 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
                 leftOrRight = "right";
 
                 checkChoice(leftOrRight);
-
             }
 
         }
