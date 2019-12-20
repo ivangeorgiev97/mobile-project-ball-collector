@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.mobilegameballcollector.validation.UserValidation;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText emailEditText;
@@ -34,9 +36,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String password1 = passwordEditText1.getText().toString();
 
-                // Check if email and passwords fields are not empty and also if value of both password fields is the same
-                if (!email.isEmpty() && !password.isEmpty() &&
-                        password.equals(password1)) {
+                // Check if email is valid and passwords fields are not empty and also if value of both password fields is the same
+                UserValidation userValidation = new UserValidation(email, password, password1);
+
+                if (userValidation.isEverythingValid()) {
                     SharedPreferences.Editor sharedPreferencesEditor =
                             getSharedPreferences("MobileGameBallCollector", MODE_PRIVATE).edit();
 
@@ -54,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(RegistrationActivity.this, "Now you can login with your email and password",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegistrationActivity.this, "Empty email field or password fields are not the same",
+                    Toast.makeText(RegistrationActivity.this, "Invalid email field or password fields are not the same or length of password is less than 1",
                             Toast.LENGTH_SHORT).show();
                 }
             }
