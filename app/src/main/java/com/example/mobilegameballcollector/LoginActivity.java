@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobilegameballcollector.validation.UserValidation;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailEditText;
@@ -45,9 +47,10 @@ public class LoginActivity extends AppCompatActivity {
                 String email = sharedPreferences.getString("email", "");
                 String password = sharedPreferences.getString("password", "");
 
-                // Check if email or password from sharedPreferences are empty or with default value
-                if (!email.isEmpty() && emailEditText.getText().toString().equalsIgnoreCase(email)
-                        && !password.isEmpty() && passwordEditText.getText().toString().equals(password)) {
+                UserValidation userValidation = new UserValidation(email, password, password);
+
+                // Check if email or password from sharedPreferences are valid and if the input is the same as the one from sharedPreferences
+                if (userValidation.isEverythingValid() && emailEditText.getText().toString().equalsIgnoreCase(email) && passwordEditText.getText().toString().equals(password)) {
 
                     Intent intent = new Intent
                             (LoginActivity.this, MainActivity.class);
