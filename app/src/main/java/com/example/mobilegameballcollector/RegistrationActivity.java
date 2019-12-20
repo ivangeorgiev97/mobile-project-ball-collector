@@ -2,6 +2,7 @@ package com.example.mobilegameballcollector;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -54,8 +55,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     passwordEditText.getText().clear();
                     passwordEditText1.getText().clear();
 
-                    Toast.makeText(RegistrationActivity.this, "Now you can login with your email and password",
-                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent
+                            (RegistrationActivity.this, LoginActivity.class);
+
+                    startActivity(intent);
                 } else {
                     Toast.makeText(RegistrationActivity.this, "Invalid email field or password fields are not the same or length of password is less than 1",
                             Toast.LENGTH_SHORT).show();
