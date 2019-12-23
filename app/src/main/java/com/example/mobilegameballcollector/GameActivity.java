@@ -13,9 +13,13 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Timer;
@@ -23,18 +27,21 @@ import java.util.TimerTask;
 
 import javax.xml.validation.TypeInfoProvider;
 
-public class GameActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
+public class GameActivity extends AppCompatActivity implements Animation.AnimationListener {
 
     private int collectedBalls;
     private String leftOrRight;
     private String gameChoice;
 
+    ImageView imgMoveView;
     Button leftButton;
     Button rightButton;
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
 
+    // Animation
+    Animation animMoveToTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +54,52 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         newRecordTextView = findViewById(R.id.newRecordTextView);
         youLostTextView = findViewById(R.id.youLostTextView);
 
-        leftButton.setOnClickListener(onClickListener);
-        rightButton.setOnClickListener(onClickListener);
+//        leftButton.setOnClickListener(onClickListener);
+//        rightButton.setOnClickListener(onClickListener);
 
         ImageView imgView = (ImageView) findViewById(R.id.imgmove);
         ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
 
-        imgView.setVisibility(View.INVISIBLE);
-        imgView2.setVisibility(View.INVISIBLE);
+//        imgView.setVisibility(View.INVISIBLE);
+//        imgView2.setVisibility(View.INVISIBLE);
+
+
+        animMoveToTop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        animMoveToTop.setAnimationListener(this);
+        leftButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                imgMoveView.setVisibility(View.VISIBLE);
+
+                // start the animation
+                imgMoveView.startAnimation(animMoveToTop);
+
+            }
+        });
 
     }
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        // Take any action after completing the animation
+        // check for move animation
+        if (animation == animMoveToTop) {
+            Toast.makeText(getApplicationContext(), "Animation Stopped", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        // TODO Auto-generated method stub
+    }
+
+
+
 
     private String getLeftOrRight() {
         String[] choices = new String[]{"left", "right"};
