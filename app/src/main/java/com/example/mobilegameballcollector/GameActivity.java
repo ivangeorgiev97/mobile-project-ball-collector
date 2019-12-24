@@ -12,35 +12,50 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements Animation.AnimationListener {
 
-    ImageView imageIcon;
+    ImageView firstImgMove;
+    ImageView secondImgMove;
     Button leftButton;
+    Button rightButton;
 
     // Animation
-    Animation animMoveToTop;
+    Animation animMoveToBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        imageIcon = (ImageView) findViewById(R.id.icon);
+        firstImgMove = (ImageView) findViewById(R.id.firstImgMove);
+        secondImgMove = (ImageView) findViewById(R.id.secondImgMove);
         leftButton = (Button) findViewById(R.id.leftButton);
+        rightButton = (Button) findViewById(R.id.rightButton);
 
         // load the animation
-        animMoveToTop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        animMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
 
         // set animation listener
-        animMoveToTop.setAnimationListener(this);
+        animMoveToBottom.setAnimationListener(this);
 
         // button click event
         leftButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                imageIcon.setVisibility(View.VISIBLE);
+                firstImgMove.setVisibility(View.VISIBLE);
 
                 // start the animation
-                imageIcon.startAnimation(animMoveToTop);
+                firstImgMove.startAnimation(animMoveToBottom);
+            }
+        });
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                secondImgMove.setVisibility(View.VISIBLE);
+
+                // start the animation
+                secondImgMove.startAnimation(animMoveToBottom);
             }
         });
     }
@@ -49,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
     public void onAnimationEnd(Animation animation) {
         // Take any action after completing the animation
         // check for move animation
-        if (animation == animMoveToTop) {
+        if (animation == animMoveToBottom) {
             Toast.makeText(getApplicationContext(), "Animation Stopped", Toast.LENGTH_SHORT).show();
         }
     }
