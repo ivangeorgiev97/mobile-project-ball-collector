@@ -1,44 +1,19 @@
 package com.example.mobilegameballcollector;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.content.SharedPreferences;
-import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import androidx.appcompat.app.AppCompatActivity;
 
-import javax.xml.validation.TypeInfoProvider;
 
 public class GameActivity extends AppCompatActivity implements Animation.AnimationListener {
 
-    private int collectedBalls;
-    private String leftOrRight;
-    private String gameChoice;
-
-    ImageView imgMoveView;
+    ImageView imageIcon;
     Button leftButton;
-    Button rightButton;
-    TextView collectedTextView;
-    TextView newRecordTextView;
-    TextView youLostTextView;
 
     // Animation
     Animation animMoveToTop;
@@ -48,37 +23,28 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        leftButton = findViewById(R.id.leftButton);
-        rightButton = findViewById(R.id.rightButton);
-        collectedTextView = findViewById(R.id.collectedTextView);
-        newRecordTextView = findViewById(R.id.newRecordTextView);
-        youLostTextView = findViewById(R.id.youLostTextView);
+        imageIcon = (ImageView) findViewById(R.id.icon);
+        leftButton = (Button) findViewById(R.id.leftButton);
 
-//        leftButton.setOnClickListener(onClickListener);
-//        rightButton.setOnClickListener(onClickListener);
-
-        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
-        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
-
-//        imgView.setVisibility(View.INVISIBLE);
-//        imgView2.setVisibility(View.INVISIBLE);
-
-
+        // load the animation
         animMoveToTop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+
+        // set animation listener
         animMoveToTop.setAnimationListener(this);
+
+        // button click event
         leftButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                imgMoveView.setVisibility(View.VISIBLE);
+                imageIcon.setVisibility(View.VISIBLE);
 
                 // start the animation
-                imgMoveView.startAnimation(animMoveToTop);
-
+                imageIcon.startAnimation(animMoveToTop);
             }
         });
-
     }
+
     @Override
     public void onAnimationEnd(Animation animation) {
         // Take any action after completing the animation
@@ -96,100 +62,5 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
     @Override
     public void onAnimationStart(Animation animation) {
         // TODO Auto-generated method stub
-    }
-
-
-
-
-    private String getLeftOrRight() {
-        String[] choices = new String[]{"left", "right"};
-        int randomChoice = new Random().nextInt(choices.length);
-
-        return choices[randomChoice];
-    }
-
-    private void checkChoice(String choice) {
-        gameChoice = getLeftOrRight();
-
-        ImageView imgView = (ImageView) findViewById(R.id.imgmove);
-        ImageView imgView2 = (ImageView) findViewById(R.id.imgmove2);
-
-        imgView.setVisibility(View.INVISIBLE);
-        imgView2.setVisibility(View.INVISIBLE);
-
-        leftButton.setEnabled(false);
-        rightButton.setEnabled(false);
-
-        if (gameChoice == "left") {
-            imgView.setVisibility(View.VISIBLE);
-        } else {
-            imgView2.setVisibility(View.VISIBLE);
-        }
-
-        rightButton.setEnabled(true);
-        leftButton.setEnabled(true);
-
-        if (choice == gameChoice) {
-            addAnotherCollectedBall();
-        } else {
-            imgView.setVisibility(View.INVISIBLE);
-            imgView2.setVisibility(View.INVISIBLE);
-            showGameEnded();
-        }
-    }
-
-    private void addAnotherCollectedBall() {
-        collectedBalls++;
-
-        SharedPreferences sharedPreferences =
-                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
-
-        int record = sharedPreferences.getInt("record", 0);
-
-        if (collectedBalls > record) {
-            SharedPreferences.Editor sharedPreferencesEditor =
-                    getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE).edit();
-
-            sharedPreferencesEditor.putInt("record", collectedBalls);
-
-            sharedPreferencesEditor.apply();
-            sharedPreferencesEditor.commit();
-
-            newRecordTextView.setText("N E W  R E C O R D : " + collectedBalls);
-            newRecordTextView.setVisibility(View.VISIBLE);
-        }
-
-        this.collectedTextView.setText(String.valueOf(collectedBalls));
-    }
-
-    private void showGameEnded() {
-        collectedBalls = 0;
-
-        this.collectedTextView.setText(String.valueOf(collectedBalls));
-        youLostTextView.setVisibility(View.VISIBLE);
-    }
-
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            youLostTextView.setVisibility(View.INVISIBLE);
-            newRecordTextView.setVisibility(View.INVISIBLE);
-
-            if (v.getId() == R.id.leftButton) {
-                leftOrRight = "left";
-
-                checkChoice(leftOrRight);
-            } else if (v.getId() == R.id.rightButton) {
-                leftOrRight = "right";
-
-                checkChoice(leftOrRight);
-
-            }
-
-        }
-    };
-
-    public void onFragmentInteraction(Uri uri) {
-        Log.i("Tag", "onFragmentInteraction called");
     }
 }
