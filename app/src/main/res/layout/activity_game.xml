@@ -6,34 +6,34 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".GameActivity">
 
-<ImageView
-    android:id="@+id/imageView10"
-    android:layout_width="596dp"
-    android:layout_height="966dp"
-    android:tint="#A1070000"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.502"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.502"
-    app:srcCompat="@drawable/ballbg" />
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="596dp"
+        android:layout_height="966dp"
+        android:tint="#A1070000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502"
+        app:srcCompat="@drawable/ballbg" />
 
-<TextView
-    android:id="@+id/whereTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="252dp"
-    android:gravity="center"
-    android:text="W H E R E  T H E  B A L L \nW I L L  G O ?"
-    android:textColor="#FDFDFD"
-    android:textSize="22sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.579"
-    app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/whereTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="244dp"
+        android:gravity="center"
+        android:text="W H E R E  T H E  B A L L \nW I L L  G O ?"
+        android:textColor="#FDFDFD"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintStart_toStartOf="parent" />
 
-<Button
+    <Button
     android:id="@+id/rightButton"
     android:layout_width="140dp"
     android:layout_height="60dp"
@@ -152,6 +152,28 @@ tools:context=".GameActivity">
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/firstTrashcan"
+        android:layout_width="129dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="168dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trashcan" />
+
+    <ImageView
+        android:id="@+id/secondTrashcan"
+        android:layout_width="129dp"
+        android:layout_height="157dp"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trashcan" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
