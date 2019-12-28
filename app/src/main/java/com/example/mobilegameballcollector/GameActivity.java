@@ -23,38 +23,38 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
     private String leftOrRight;
     private String gameChoice;
 
-
     ImageView imgmove;
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
 
-    // Animation
-    Animation animMoveToTop;
     ImageView firstImgMove;
     ImageView secondImgMove;
     Button leftButton;
     Button rightButton;
 
     // Animation
-    Animation animMoveToBottom;
+    Animation firstAnimMoveToBottom;
+    Animation secondAnimMoveToBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        firstImgMove = (ImageView) findViewById(R.id.firstImgMove);
-        secondImgMove = (ImageView) findViewById(R.id.secondImgMove);
-        leftButton = (Button) findViewById(R.id.leftButton);
-        rightButton = (Button) findViewById(R.id.rightButton);
+        firstImgMove = findViewById(R.id.firstImgMove);
+        secondImgMove = findViewById(R.id.secondImgMove);
+        leftButton = findViewById(R.id.leftButton);
+        rightButton = findViewById(R.id.rightButton);
 
 
         // load the animation
-        animMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
 
         // set animation listener
-        animMoveToBottom.setAnimationListener(this);
+        firstAnimMoveToBottom.setAnimationListener(this);
+        secondAnimMoveToBottom.setAnimationListener(this);
 
         // button click event
         leftButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
                 firstImgMove.setVisibility(View.VISIBLE);
 
                 // start the animation
-                firstImgMove.startAnimation(animMoveToBottom);
+                firstImgMove.startAnimation(firstAnimMoveToBottom);
             }
         });
 
@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
                 secondImgMove.setVisibility(View.VISIBLE);
 
                 // start the animation
-                secondImgMove.startAnimation(animMoveToBottom);
+                secondImgMove.startAnimation(secondAnimMoveToBottom);
             }
         });
 
@@ -192,7 +192,7 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
     public void onAnimationEnd(Animation animation) {
         // Take any action after completing the animation
         // check for move animation
-        if (animation == animMoveToBottom) {
+        if (animation == firstAnimMoveToBottom && animation == secondAnimMoveToBottom) {
             Toast.makeText(getApplicationContext(), "Animation Stopped", Toast.LENGTH_SHORT).show();
         }
     }
