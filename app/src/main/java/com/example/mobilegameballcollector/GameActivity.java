@@ -23,17 +23,16 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
     private String leftOrRight;
     private String gameChoice;
 
-    ImageView imgmove;
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
 
     ImageView firstImgMove;
     ImageView secondImgMove;
+
     Button leftButton;
     Button rightButton;
 
-    // Animation
     Animation firstAnimMoveToBottom;
     Animation secondAnimMoveToBottom;
 
@@ -47,57 +46,57 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
         leftButton = findViewById(R.id.leftButton);
         rightButton = findViewById(R.id.rightButton);
 
+//        leftButton = findViewById(R.id.leftButton);
+//        rightButton = findViewById(R.id.rightButton);
+        collectedTextView = findViewById(R.id.collectedTextView);
+        newRecordTextView = findViewById(R.id.newRecordTextView);
+        youLostTextView = findViewById(R.id.youLostTextView);
+//
+        leftButton.setOnClickListener(onClickListener);
+        rightButton.setOnClickListener(onClickListener);
+
+        ImageView imgView = findViewById(R.id.firstImgMove);
+        ImageView imgView2 = findViewById(R.id.secondImgMove);
+
+        imgView.setVisibility(View.INVISIBLE);
+        imgView2.setVisibility(View.INVISIBLE);
+
+        SharedPreferences sharedPreferences =
+                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
+        currentRecord = sharedPreferences.getInt("record", 0);
+
+
 
         // load the animation
-        firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+     //   firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
         secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
 
         // set animation listener
-        firstAnimMoveToBottom.setAnimationListener(this);
+    //    firstAnimMoveToBottom.setAnimationListener(this);
         secondAnimMoveToBottom.setAnimationListener(this);
 
         // button click event
-        leftButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                firstImgMove.setVisibility(View.VISIBLE);
-
-                // start the animation
-                firstImgMove.startAnimation(firstAnimMoveToBottom);
-            }
-        });
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                secondImgMove.setVisibility(View.VISIBLE);
-
-                // start the animation
-                secondImgMove.startAnimation(secondAnimMoveToBottom);
-            }
-        });
-
-//        leftButton = findViewById(R.id.leftButton);
-//        rightButton = findViewById(R.id.rightButton);
-//        collectedTextView = findViewById(R.id.collectedTextView);
-//        newRecordTextView = findViewById(R.id.newRecordTextView);
-//        youLostTextView = findViewById(R.id.youLostTextView);
+//        leftButton.setOnClickListener(new View.OnClickListener() {
 //
-//        leftButton.setOnClickListener(onClickListener);
-//        rightButton.setOnClickListener(onClickListener);
+//            @Override
+//            public void onClick(View v) {
+//                firstImgMove.setVisibility(View.VISIBLE);
 //
-//        ImageView imgView = findViewById(R.id.firstImgMove);
-//        ImageView imgView2 = findViewById(R.id.secondImgMove);
-//
-//        imgView.setVisibility(View.INVISIBLE);
-//        imgView2.setVisibility(View.INVISIBLE);
-//
-//        SharedPreferences sharedPreferences =
-//                getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
-//        currentRecord = sharedPreferences.getInt("record", 0);
+//                firstImgMove.startAnimation(firstAnimMoveToBottom);
+//            }
+//        });
 
+//        rightButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                secondImgMove.setVisibility(View.VISIBLE);
+//
+//                secondImgMove.startAnimation(secondAnimMoveToBottom);
+//
+//            }
+//        });
     }
     private String getLeftOrRight() {
         String[] choices = new String[]{"left", "right"};
@@ -119,8 +118,25 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
         rightButton.setEnabled(false);
 
         if (gameChoice == "left") {
+            firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+            firstAnimMoveToBottom.setAnimationListener(this);
+
+                    // firstImgMove.setVisibility(View.VISIBLE);
+
+            firstImgMove.startAnimation(firstAnimMoveToBottom);
+
+
             imgView.setVisibility(View.VISIBLE);
         } else {
+            secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+            secondAnimMoveToBottom.setAnimationListener(this);
+
+
+            // secondImgMove.setVisibility(View.VISIBLE);
+
+            secondImgMove.startAnimation(secondAnimMoveToBottom);
+
+
             imgView2.setVisibility(View.VISIBLE);
         }
 
