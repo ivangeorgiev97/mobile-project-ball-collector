@@ -14,6 +14,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 public class GameActivity extends AppCompatActivity implements Animation.AnimationListener {
@@ -43,15 +47,14 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
 
         firstImgMove = findViewById(R.id.firstImgMove);
         secondImgMove = findViewById(R.id.secondImgMove);
+
         leftButton = findViewById(R.id.leftButton);
         rightButton = findViewById(R.id.rightButton);
 
-//        leftButton = findViewById(R.id.leftButton);
-//        rightButton = findViewById(R.id.rightButton);
         collectedTextView = findViewById(R.id.collectedTextView);
         newRecordTextView = findViewById(R.id.newRecordTextView);
         youLostTextView = findViewById(R.id.youLostTextView);
-//
+
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
@@ -66,37 +69,6 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
         currentRecord = sharedPreferences.getInt("record", 0);
 
 
-
-        // load the animation
-     //   firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
-        secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
-
-        // set animation listener
-    //    firstAnimMoveToBottom.setAnimationListener(this);
-        secondAnimMoveToBottom.setAnimationListener(this);
-
-        // button click event
-//        leftButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                firstImgMove.setVisibility(View.VISIBLE);
-//
-//                firstImgMove.startAnimation(firstAnimMoveToBottom);
-//            }
-//        });
-
-//        rightButton.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                secondImgMove.setVisibility(View.VISIBLE);
-//
-//                secondImgMove.startAnimation(secondAnimMoveToBottom);
-//
-//            }
-//        });
     }
 
     private String getLeftOrRight() {
@@ -121,28 +93,48 @@ public class GameActivity extends AppCompatActivity implements Animation.Animati
         if (gameChoice == "left") {
             firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
             firstAnimMoveToBottom.setAnimationListener(this);
-
-                    // firstImgMove.setVisibility(View.VISIBLE);
-
             firstImgMove.startAnimation(firstAnimMoveToBottom);
-
-
             imgView.setVisibility(View.VISIBLE);
         } else {
             secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
             secondAnimMoveToBottom.setAnimationListener(this);
-
-
-            // secondImgMove.setVisibility(View.VISIBLE);
-
             secondImgMove.startAnimation(secondAnimMoveToBottom);
-
-
             imgView2.setVisibility(View.VISIBLE);
         }
 
-        rightButton.setEnabled(true);
-        leftButton.setEnabled(true);
+        leftButton.setEnabled(false);
+
+        Timer buttonTimer = new Timer();
+        buttonTimer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        leftButton.setEnabled(true);
+                    }
+                });
+            }
+        }, 1000);
+
+        rightButton.setEnabled(false);
+
+        Timer buttonTimer2 = new Timer();
+        buttonTimer2.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        rightButton.setEnabled(true);
+                    }
+                });
+            }
+        }, 1000);
 
         if (choice == gameChoice) {
             addAnotherCollectedBall();
