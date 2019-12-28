@@ -1,58 +1,62 @@
 package com.example.mobilegameballcollector;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.xml.validation.TypeInfoProvider;
 
-public class GameActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
+public class GameActivity extends AppCompatActivity implements Animation.AnimationListener {
 
     private int collectedBalls;
     private int currentRecord;
     private String leftOrRight;
     private String gameChoice;
 
-    Button leftButton;
-    Button rightButton;
     TextView collectedTextView;
     TextView newRecordTextView;
     TextView youLostTextView;
 
+    ImageView firstImgMove;
+    ImageView secondImgMove;
+
+    Button leftButton;
+    Button rightButton;
+
+    Animation firstAnimMoveToBottom;
+    Animation secondAnimMoveToBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        firstImgMove = findViewById(R.id.firstImgMove);
+        secondImgMove = findViewById(R.id.secondImgMove);
         leftButton = findViewById(R.id.leftButton);
         rightButton = findViewById(R.id.rightButton);
+
+//        leftButton = findViewById(R.id.leftButton);
+//        rightButton = findViewById(R.id.rightButton);
         collectedTextView = findViewById(R.id.collectedTextView);
         newRecordTextView = findViewById(R.id.newRecordTextView);
         youLostTextView = findViewById(R.id.youLostTextView);
-
+//
         leftButton.setOnClickListener(onClickListener);
         rightButton.setOnClickListener(onClickListener);
 
-        ImageView imgView = findViewById(R.id.imgmove);
-        ImageView imgView2 = findViewById(R.id.imgmove2);
+        ImageView imgView = findViewById(R.id.firstImgMove);
+        ImageView imgView2 = findViewById(R.id.secondImgMove);
 
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
@@ -60,6 +64,39 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         SharedPreferences sharedPreferences =
                 getSharedPreferences("MobileGameBallCollectorRecord", MODE_PRIVATE);
         currentRecord = sharedPreferences.getInt("record", 0);
+
+
+
+        // load the animation
+     //   firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+
+        // set animation listener
+    //    firstAnimMoveToBottom.setAnimationListener(this);
+        secondAnimMoveToBottom.setAnimationListener(this);
+
+        // button click event
+//        leftButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                firstImgMove.setVisibility(View.VISIBLE);
+//
+//                firstImgMove.startAnimation(firstAnimMoveToBottom);
+//            }
+//        });
+
+//        rightButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                secondImgMove.setVisibility(View.VISIBLE);
+//
+//                secondImgMove.startAnimation(secondAnimMoveToBottom);
+//
+//            }
+//        });
     }
 
     private String getLeftOrRight() {
@@ -72,8 +109,8 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
     private void checkChoice(String choice) {
         gameChoice = getLeftOrRight();
 
-        ImageView imgView = findViewById(R.id.imgmove);
-        ImageView imgView2 = findViewById(R.id.imgmove2);
+        ImageView imgView = findViewById(R.id.firstImgMove);
+        ImageView imgView2 = findViewById(R.id.secondImgMove);
 
         imgView.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
@@ -82,8 +119,25 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
         rightButton.setEnabled(false);
 
         if (gameChoice == "left") {
+            firstAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+            firstAnimMoveToBottom.setAnimationListener(this);
+
+                    // firstImgMove.setVisibility(View.VISIBLE);
+
+            firstImgMove.startAnimation(firstAnimMoveToBottom);
+
+
             imgView.setVisibility(View.VISIBLE);
         } else {
+            secondAnimMoveToBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+            secondAnimMoveToBottom.setAnimationListener(this);
+
+
+            // secondImgMove.setVisibility(View.VISIBLE);
+
+            secondImgMove.startAnimation(secondAnimMoveToBottom);
+
+
             imgView2.setVisibility(View.VISIBLE);
         }
 
@@ -149,4 +203,26 @@ public class GameActivity extends AppCompatActivity implements GameFragment.OnFr
     public void onFragmentInteraction(Uri uri) {
         Log.i("Tag", "onFragmentInteraction called");
     }
+
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        // Take any action after completing the animation
+        // check for move animation
+        if (animation == firstAnimMoveToBottom && animation == secondAnimMoveToBottom) {
+            Toast.makeText(getApplicationContext(), "Animation Stopped", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        // TODO Auto-generated method stub
+    }
+
+
 }
